@@ -1,0 +1,60 @@
+SELECT * FROM film;
+
+SELECT * FROM actor;
+
+SELECT * FROM actor
+WHERE first_name = 'Nick' AND last_name = 'Wahlberg';
+
+SELECT * FROM film_actor;
+
+SELECT * FROM actor
+SELECT * FROM film_actor
+WHERE actor_id = 2;
+
+SELECT title, first_name, last_name FROM actor
+INNER JOIN film_actor;
+
+SELECT title, first_name, last_name FROM actor
+INNER JOIN film_actor
+ON film_actor.actor_id = actor.actor_id;
+
+SELECT title, first_name, last_name
+FROM film_actor
+INNER JOIN actor
+ON film_actor.actor_id = actor.actor_id
+INNER JOIN film
+ON film_actor.film_id = film.film_id
+WHERE first_name = 'Nick'
+AND last_name = 'Wahlberg';
+
+SHOW timezone;
+SELECT NOW();
+SELECT TIMEOFDAY();
+SELECT CURRENT_TIME;
+SELECT CURRENT_DATE;
+
+SELECT EXTRACT(CENTURY FROM TIMESTAMP '2001-02-16 20:38:40');
+SELECT EXTRACT(YEAR FROM TIMESTAMP '2001-02-16 20:38:40') AS my_year;
+SELECT EXTRACT(MONTH FROM TIMESTAMP '2001-02-16 20:38:40') AS my_month;
+
+SELECT AGE(payment_date) FROM payment;
+SELECT TO_CHAR(payment_date,'month-yyyy') FROM payment;
+SELECT TO_CHAR(payment_date,'mon/dd/YYYY') FROM payment;
+SELECT TO_CHAR(payment_date,'month yyyy') AS month_year FROM payment;
+
+
+SELECT AGE(TIMESTAMP '2001-02-16 20:38:40');
+
+-- Challenge
+
+SELECT DISTINCT(TO_CHAR(payment_date, 'Month')) AS payment_months FROM payment;
+
+SELECT COUNT(*)
+FROM payment
+WHERE EXTRACT(dow FROM payment_date) = 1;
+
+-- Lecture
+
+SELECT ROUND(rental_rate/replacement_cost,2) * 100 as per_cost FROM film;
+
+SELECT LENGTH(first_name) FROM customer;
