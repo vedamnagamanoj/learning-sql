@@ -58,3 +58,52 @@ WHERE EXTRACT(dow FROM payment_date) = 1;
 SELECT ROUND(rental_rate/replacement_cost,2) * 100 as per_cost FROM film;
 
 SELECT LENGTH(first_name) FROM customer;
+
+SELECT UPPER(first_name) ||' '|| last_name AS full_name
+FROM customer;
+
+SELECT LOWER(first_name)||'.'||LOWER(last_name)||'@sakilacustomer.org' AS customer_email 
+FROM customer;
+
+SELECT LOWER(LEFT(first_name,1))|| LOWER(last_name) || '@email.com' AS customer_email
+FROM customer;
+
+SELECT AVG(rental_rate) FROM film;
+
+SELECT title, rental_rate FROM film 
+WHERE rental_rate >= (SELECT AVG(rental_rate) FROM film)
+ORDER BY rental_rate;
+
+SELECT * FROM rental;
+SELECT * FROM inventory;
+
+SELECT film_id, title
+FROM film
+WHERE film_id IN
+(SELECT inventory.film_id FROM rental
+INNER JOIN inventory
+ON inventory.inventory_id = rental.inventory_id
+WHERE return_date BETWEEN '2005-05-29' AND '2005-05-30');
+
+SELECT * FROM payment;
+
+SELECT * 
+FROM customer AS c
+WHERE EXISTS
+(SELECT * FROM payment AS p
+WHERE p.customer_id = c.customer_id
+AND amount > 11);
+
+
+SELECT title, length FROM film
+WHERE length = 117;
+
+SELECT a.title AS ref_title, b.title AS mat_title, a.length as runtime
+FROM film AS a
+INNER JOIN film AS b
+ON a.film_id != b.film_id AND a.length = b.length;
+
+
+
+
+
